@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/src_js/node_modules
 /.pnp
 .pnp.js
 
@@ -9,11 +10,11 @@
 /coverage
 
 # next.js
-/.next/
+/src_js/.next/
 /out/
 
 # production
-/build
+/src_js/build
 
 # misc
 .DS_Store
@@ -25,10 +26,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+/src_js/.env.local
+/src_js/.env.development.local
+/src_js/.env.test.local
+/src_js/.env.production.local
 
 # vercel
-.vercel
+src_js/.vercel

@@ -1,0 +1,13 @@
+{
+  "links": {
+    "link01": "Store",
+    "link02": "News",
+    "link03": "FAQ",
+    "link04": "Help",
+    "link05": "Unreal engine"
+  },
+  "user": {
+    "signIn": "Sign in",
+    "download": "Download {{name}}"
+  }
+}
