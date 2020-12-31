@@ -1,10 +1,9 @@
 module.exports = {
-  locales: ["en", "ru"],
-  defaultLocale: "ru",
+  locales: ['en', 'ru'],
+  defaultLocale: 'ru',
   pages: {
-    "*": ["common"],
-    "/": ["home"]
+    '*': ['common'],
+    '/': ['home'],
   },
-  loadLocaleFrom: (lang, ns) =>
-    import(`./public/translations/${lang}/${ns}.json`).then((m) => m.default),
-}
+  loadLocaleFrom: (lang, ns) => import(`./public/translations/${lang}/${ns}.json`).then((m) => m.default),
+};

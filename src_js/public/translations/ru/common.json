@@ -1,3 +1,15 @@
 {
-  "magazine": "Магазин {{name}}"
+  "title": "Hello World!",
+  "store": "Магазин {{name}}",
+  "links": {
+    "link01": "Магазин",
+    "link02": "Новости",
+    "link03": "Часто задаваемые вопросы",
+    "link04": "Справка",
+    "link05": "Unreal engine"
+  },
+  "user": {
+    "signIn": "Вход",
+    "download": "Загрузить {{name}}"
+  }
 }

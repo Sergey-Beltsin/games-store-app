@@ -1,7 +1,26 @@
+import { AppProps } from 'next/app';
+import styled from 'styled-components';
+
 import '../src/UI/_settings/index.css';
 
-const MyApp = ({ Component, pageProps }) => (
-// eslint-disable-next-line react/jsx-props-no-spreading
-  <Component {...pageProps} />
+import { Navigation } from '../src/features/navigation';
+
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <>
+    <Header>
+      <Navigation />
+    </Header>
+    <Main>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <Component {...pageProps} />
+    </Main>
+  </>
 );
+
 export default MyApp;
+
+const Header = styled.header``;
+
+const Main = styled.main`
+  padding-top: 52px;
+`;
