@@ -1,4 +1,7 @@
-import { FC } from 'react';
+import {
+  FC,
+  forwardRef,
+} from 'react';
 import styled from 'styled-components';
 
 import { secondary } from '@/lib/constants/theme';
@@ -12,25 +15,27 @@ interface OwnProps {
   transHandler: () => void;
   isUserNavOpen: boolean;
   userNavHandler: () => void;
+  ref: any;
 }
 interface WrapperOwnProps {
   tabletWidth?: boolean;
+  ref?: any;
 }
 
 type NavTopBarProps = OwnProps;
 type WrapperProps = WrapperOwnProps;
 
-export const NavTopBar: FC<NavTopBarProps> = ({
+export const NavTopBar: FC<NavTopBarProps> = forwardRef(({
   isOpen,
   onClick,
   transHandler,
   isUserNavOpen,
   userNavHandler,
-}) => (
+}, ref) => (
   <Container>
     <Wrapper>
       <Logo />
-      <AdaptiveWrapper>
+      <AdaptiveWrapper ref={ref}>
         <NavLinks />
       </AdaptiveWrapper>
     </Wrapper>
@@ -49,7 +54,7 @@ export const NavTopBar: FC<NavTopBarProps> = ({
       </AdaptiveWrapper>
     </Wrapper>
   </Container>
-);
+));
 
 const Container = styled.div`
   display: flex;
@@ -61,6 +66,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 500;
 
   background-color: ${secondary};
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
-import { PC_MIDDLE_WIDTH, TABLET_WIDTH } from '@/lib/constants/common';
+import { PC_MIDDLE_WIDTH } from '@/lib/constants/common';
 import { NavLink } from '../../../atoms';
 
 interface OwnProps {}
@@ -11,10 +11,10 @@ interface Link {
   href: string;
 }
 
-type Props = OwnProps;
+type NavLinksProps = OwnProps;
 type Links = Link[];
 
-export const NavLinks: FC<Props> = () => {
+export const NavLinks: FC<NavLinksProps> = () => {
   const { t } = useTranslation('common');
   const LINKS: Links = [
     {

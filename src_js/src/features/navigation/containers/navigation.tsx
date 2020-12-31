@@ -1,4 +1,8 @@
-import { FC, useRef, useState } from 'react';
+import {
+  FC,
+  useRef,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 
 import { secondary } from '@/lib/constants/theme';
@@ -23,7 +27,10 @@ export const Navigation: FC<NavigationProps> = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const [isUserNavOpen, setIsUserNavOpen] = useState<boolean>(true);
   const navigationRef = useRef(null);
+  const navLinksRef = useRef(null);
   useOutsideAlerter(navigationRef, () => setIsNavOpen(false), 'nav-close-btn');
+  const minLinksWidth = navLinksRef?.current && navLinksRef.current.offsetWidth + 300 + 52;
+  // console.log(navLinksRef?.current && (navLinksRef.current.offsetWidth), minLinksWidth);
 
   return (
     <Container isOpen={isNavOpen}>
@@ -34,8 +41,12 @@ export const Navigation: FC<NavigationProps> = () => {
           transHandler={() => console.log('translation handler')}
           isUserNavOpen={isUserNavOpen}
           userNavHandler={() => setIsUserNavOpen((prevState) => !prevState)}
+          ref={navLinksRef}
         />
-        <NavigationWrapper isOpen={isNavOpen} ref={navigationRef}>
+        <NavigationWrapper
+          isOpen={isNavOpen}
+          ref={navigationRef}
+        >
           <NavigationInner>
             <NavLinks />
             <UserNav
