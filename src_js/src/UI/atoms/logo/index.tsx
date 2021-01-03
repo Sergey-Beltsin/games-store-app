@@ -6,7 +6,7 @@ import { white } from '@/lib/constants/theme';
 
 export const Logo: FunctionComponent = () => (
   <Container>
-    <StyledLink href="/">
+    <StyledLink href="/store">
       <Ref>
         Logo
       </Ref>

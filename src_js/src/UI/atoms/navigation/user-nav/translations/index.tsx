@@ -2,12 +2,12 @@ import { FC } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import styled from 'styled-components';
 
-import { TranslateIcon } from '@/lib/icons';
+import { TranslateIcon } from '@/lib/icons/user';
 import { iconsColor, white } from '@/lib/constants/theme';
 import { TABLET_WIDTH } from '@/lib/constants/common';
 
 interface OwnProps {
-  onClick: () => void;
+  onClick: (isOpen: boolean) => void;
 }
 
 type Props = OwnProps;
@@ -16,7 +16,13 @@ export const UserNavTranslations: FC<Props> = ({ onClick }) => {
   const { lang } = useTranslation('common');
 
   return (
-    <Container onClick={onClick}>
+    <Container
+      onClick={() => onClick(true)}
+      onMouseEnter={() => typeof window !== 'undefined'
+        && window.innerWidth >= TABLET_WIDTH && onClick(true)}
+      onMouseLeave={() => typeof window !== 'undefined'
+        && window.innerWidth >= TABLET_WIDTH && onClick(false)}
+    >
       <Icon title={lang}>
         <TranslateIcon />
       </Icon>

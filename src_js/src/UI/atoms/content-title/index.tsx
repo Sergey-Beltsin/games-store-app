@@ -10,6 +10,9 @@ export const ContentTitle: FC = ({ children }) => (
 );
 
 const Text = styled.div`
+  margin-bottom: 15px;
+  padding-top: 50px;
+
   font-size: 18px;
   color: ${white};
   line-height: 1.4;

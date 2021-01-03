@@ -10,12 +10,12 @@ import { useOutsideAlerter } from '@/lib/utils/hooks';
 import { TABLET_WIDTH } from '@/lib/constants/common';
 import {
   NavLinks,
-  NavTopBar,
   UserNav,
-} from '../../../UI/molecules';
+  SearchMainBar,
+} from '@/UI/molecules/navigation';
+import { NavTopBar } from '@/UI/organisms/navigation';
 
 interface OwnProps {}
-
 interface ContainerOwnProps {
   isOpen: boolean;
 }
@@ -25,10 +25,16 @@ type ContainerProps = ContainerOwnProps;
 
 export const Navigation: FC<NavigationProps> = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
-  const [isUserNavOpen, setIsUserNavOpen] = useState<boolean>(true);
+  const [isUserNavOpen, setIsUserNavOpen] = useState<boolean>(false);
+  const [isTransOpen, setIsTransOpen] = useState<boolean>(false);
+  const [isSearchOpened, setIsSearchOpened] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
   const navigationRef = useRef(null);
   const navLinksRef = useRef(null);
-  useOutsideAlerter(navigationRef, () => setIsNavOpen(false), 'nav-close-btn');
+  useOutsideAlerter(navigationRef, () => {
+    setIsNavOpen(false);
+    setIsTransOpen(false);
+  }, 'nav-close-btn');
   const minLinksWidth = navLinksRef?.current && navLinksRef.current.offsetWidth + 300 + 52;
   // console.log(navLinksRef?.current && (navLinksRef.current.offsetWidth), minLinksWidth);
 
@@ -37,10 +43,15 @@ export const Navigation: FC<NavigationProps> = () => {
       <Wrapper>
         <NavTopBar
           isOpen={isNavOpen}
-          onClick={() => setIsNavOpen((prevState) => !prevState)}
-          transHandler={() => console.log('translation handler')}
+          onClick={() => {
+            setIsNavOpen((prevState) => !prevState);
+            setIsTransOpen(false);
+          }}
+          transHandler={(isOpen) => setIsTransOpen(isOpen)}
+          isTransOpen={isTransOpen}
           isUserNavOpen={isUserNavOpen}
           userNavHandler={() => setIsUserNavOpen((prevState) => !prevState)}
+          setIsTransOpen={setIsTransOpen}
           ref={navLinksRef}
         />
         <NavigationWrapper
@@ -50,12 +61,17 @@ export const Navigation: FC<NavigationProps> = () => {
           <NavigationInner>
             <NavLinks />
             <UserNav
-              transHandler={() => console.log('translation handler')}
+              transHandler={() => setIsTransOpen((prevState) => !prevState)}
               userNavHandler={() => setIsUserNavOpen((prevState) => !prevState)}
               isOpen={isUserNavOpen}
             />
           </NavigationInner>
         </NavigationWrapper>
+        <SearchMainBar
+          isSearchOpen={isSearchOpened}
+          value={search}
+          setValue={setSearch}
+        />
       </Wrapper>
     </Container>
   );
@@ -63,6 +79,7 @@ export const Navigation: FC<NavigationProps> = () => {
 
 const Container = styled.nav<ContainerProps>`
   position: relative;
+  z-index: 200;
 
   &::before {
     content: '';

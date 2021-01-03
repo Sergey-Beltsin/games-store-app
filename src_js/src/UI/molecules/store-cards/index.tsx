@@ -1,12 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { PC_MIDDLE_WIDTH, TABLET_WIDTH } from '@/lib/constants/common';
+import { generateUUID } from '@/lib/utils/generate-uuid';
 import { StoreCard } from '../../atoms';
 
-interface OwnProps {}
 interface Card {
   src: string;
-  href: string;
   title: string;
   company: string;
   discount: number;
@@ -14,40 +12,35 @@ interface Card {
   price: string;
 }
 
-type Props = OwnProps;
 type Cards = Card[];
 
 const CARDS: Cards = [
   {
-    src: 'https://place-hold.it/500x500',
-    href: '/',
+    src: 'https://place-hold.it/200x300',
     title: 'Godfall',
     company: 'Counterplay Games',
-    discount: 17,
-    oldPrice: '2 499,00',
-    price: '2 074,17',
+    discount: 15,
+    oldPrice: '1 999,00',
+    price: '1 699,15',
   },
   {
-    src: 'https://place-hold.it/500x500',
-    href: '/',
+    src: 'https://place-hold.it/200x300',
     title: 'Assasin\'s Creed: Valhalla',
     company: 'Ubisoft Montreal | Ubisoft',
-    discount: 17,
-    oldPrice: '2 499,00',
-    price: '2 074,17',
+    discount: 67,
+    oldPrice: '1 249,00',
+    price: '412,17',
   },
   {
-    src: 'https://place-hold.it/500x500',
-    href: '/',
+    src: 'https://place-hold.it/200x300',
     title: 'Assasin\'s Creed Rogue',
     company: 'Ubisoft',
-    discount: 17,
+    discount: 33,
     oldPrice: '2 499,00',
-    price: '2 074,17',
+    price: '1 673,33',
   },
   {
-    src: 'https://place-hold.it/500x500',
-    href: '/',
+    src: 'https://place-hold.it/200x300',
     title: 'Watch Dogs: Legion',
     company: 'Ubisoft',
     discount: 17,
@@ -56,12 +49,12 @@ const CARDS: Cards = [
   },
 ];
 
-export const StoreCards: FC<Props> = (props) => (
+export const StoreCards: FC = () => (
   <Container>
     {CARDS.map((card) => (
       <StoreCard
+        key={generateUUID()}
         src={card.src}
-        href={card.href}
         title={card.title}
         company={card.company}
         discount={card.discount}
@@ -73,20 +66,11 @@ export const StoreCards: FC<Props> = (props) => (
 );
 
 const Container = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 
   margin: 0;
   padding: 0;
 
   list-style: none;
-
-  @media (min-width: ${TABLET_WIDTH}px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media (min-width: ${PC_MIDDLE_WIDTH}px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
 `;

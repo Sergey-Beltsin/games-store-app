@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
 import { PC_MIDDLE_WIDTH } from '@/lib/constants/common';
+import { generateUUID } from '@/lib/utils/generate-uuid';
 import { NavLink } from '../../../atoms';
 
 interface OwnProps {}
@@ -42,7 +43,12 @@ export const NavLinks: FC<NavLinksProps> = () => {
   return (
     <Container>
       {LINKS.map((link) => (
-        <NavLink href={link.href}>{link.title}</NavLink>
+        <NavLink
+          key={generateUUID()}
+          href={link.href}
+        >
+          {link.title}
+        </NavLink>
       ))}
     </Container>
   );

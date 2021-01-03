@@ -1,5 +1,4 @@
 {
-  "title": "Hello World!",
   "store": "{{name}} store",
   "links": {
     "link01": "Store",
@@ -11,5 +10,12 @@
   "user": {
     "signIn": "Sign in",
     "download": "Download {{name}}"
+  },
+  "searchBar": {
+    "find": "Discover",
+    "search": "Search"
+  },
+  "storePage": {
+    "sell": "Holiday Sale"
   }
 }

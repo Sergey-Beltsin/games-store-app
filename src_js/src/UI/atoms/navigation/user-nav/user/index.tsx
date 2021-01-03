@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
 
-import { UserIcon } from '@/lib/icons';
+import { UserIcon } from '@/lib/icons/user';
 import { borderSecondary, iconsColor, white } from '@/lib/constants/theme';
 import { TABLET_WIDTH } from '@/lib/constants/common';
 

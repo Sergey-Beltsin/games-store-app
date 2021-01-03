@@ -13,7 +13,7 @@ import { UserNavTranslations } from '../../../atoms/navigation/user-nav/translat
 import { UserNavDownload } from '../../../atoms/navigation/user-nav/download';
 
 interface OwnProps {
-  transHandler: () => void;
+  transHandler: (isOpen: boolean) => void;
   isOpen: boolean;
   userNavHandler: () => void;
 }

@@ -1,5 +1,7 @@
 import {
+  Dispatch,
   FC,
+  SetStateAction,
   forwardRef,
 } from 'react';
 import styled from 'styled-components';
@@ -7,23 +9,33 @@ import styled from 'styled-components';
 import { secondary } from '@/lib/constants/theme';
 import { PC_MIDDLE_WIDTH, TABLET_WIDTH } from '@/lib/constants/common';
 import { CloseButton, Logo } from '../../../atoms';
-import { NavLinks, UserNav } from '../../../molecules';
+import {
+  NavLinks,
+  Translations,
+  UserNav,
+} from '../../../molecules/navigation';
 
 interface OwnProps {
   isOpen: boolean;
   onClick: () => void;
-  transHandler: () => void;
+  transHandler: (isOpen: boolean) => void;
   isUserNavOpen: boolean;
   userNavHandler: () => void;
   ref: any;
+  isTransOpen: boolean;
+  setIsTransOpen: Dispatch<SetStateAction<boolean>>;
 }
 interface WrapperOwnProps {
   tabletWidth?: boolean;
   ref?: any;
 }
+interface ContainerOwnProps {
+  isOpen: boolean;
+}
 
 type NavTopBarProps = OwnProps;
 type WrapperProps = WrapperOwnProps;
+type ContainerProps = ContainerOwnProps;
 
 export const NavTopBar: FC<NavTopBarProps> = forwardRef(({
   isOpen,
@@ -31,6 +43,8 @@ export const NavTopBar: FC<NavTopBarProps> = forwardRef(({
   transHandler,
   isUserNavOpen,
   userNavHandler,
+  isTransOpen,
+  setIsTransOpen,
 }, ref) => (
   <Container>
     <Wrapper>
@@ -51,6 +65,14 @@ export const NavTopBar: FC<NavTopBarProps> = forwardRef(({
           isOpen={isUserNavOpen}
           userNavHandler={userNavHandler}
         />
+        <TranslationsContainer
+          isOpen={isTransOpen}
+          className="nav-close-btn"
+          onMouseEnter={() => setIsTransOpen(true)}
+          onMouseLeave={() => setIsTransOpen(false)}
+        >
+          <Translations onClose={() => setIsTransOpen(false)} />
+        </TranslationsContainer>
       </AdaptiveWrapper>
     </Wrapper>
   </Container>
@@ -84,5 +106,29 @@ const AdaptiveWrapper = styled.div<WrapperProps>`
 
   @media (min-width: ${({ tabletWidth }) => (tabletWidth ? TABLET_WIDTH : PC_MIDDLE_WIDTH)}px) {
     display: flex;
+  }
+`;
+
+const TranslationsContainer = styled.div<ContainerProps>`
+  width: 90vw;
+
+  position: fixed;
+  right: ${({ isOpen }) => (isOpen ? 0 : -150)}vw;
+  top: 52px;
+  bottom: 0;
+
+  transition: right 0.4s ease,
+    opacity 0.2s ease;
+
+  @media (min-width: ${TABLET_WIDTH}px) {
+    width: 180px;
+
+    right: 200px;
+    bottom: auto;
+
+    ${({ isOpen }) => !isOpen && (`
+      opacity: 0;
+      visibility: hidden;
+    `)}
   }
 `;

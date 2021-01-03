@@ -1,6 +1,8 @@
 import { useEffect, MutableRefObject } from 'react';
 
 const checkIsContains = (targetClassName: string, classNames: string[]) => {
+  if (!classNames) return true;
+
   let isContains = true;
 
   for (let i = 0; i < classNames.length; i += 1) {

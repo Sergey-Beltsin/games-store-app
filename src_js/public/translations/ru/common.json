@@ -11,5 +11,12 @@
   "user": {
     "signIn": "Вход",
     "download": "Загрузить {{name}}"
+  },
+  "searchBar": {
+    "find": "Найти",
+    "search": "Поиск"
+  },
+  "storePage": {
+    "sell": "Праздничная распродажа"
   }
 }
