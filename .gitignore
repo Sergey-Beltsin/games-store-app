@@ -1,8 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# IDE
+/.idea
+/client/.idea
+/Epic/.idea
+
 # dependencies
 /node_modules
-/src_js/node_modules
+/client/node_modules
 /.pnp
 .pnp.js
 
@@ -10,26 +15,26 @@
 /coverage
 
 # next.js
-/src_js/.next/
-/out/
+/client/.next/
+/client/out/
 
 # production
-/src_js/build
+/client/build
 
 # misc
 .DS_Store
 *.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
 
 # local env files
-/src_js/.env.local
-/src_js/.env.development.local
-/src_js/.env.test.local
-/src_js/.env.production.local
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
 
 # vercel
-src_js/.vercel
+/client/.vercel
