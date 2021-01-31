@@ -9,6 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sentry/integrations": "^6.0.3",
+    "@sentry/node": "^6.0.3",
+    "@sentry/react": "^6.0.3",
+    "@sentry/tracing": "^6.0.3",
+    "@sentry/webpack-plugin": "^1.14.0",
     "cross-env": "7.0.3",
     "effector": "21.7.5",
     "effector-react": "21.2.1",

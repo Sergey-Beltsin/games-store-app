@@ -1,34 +1,77 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { primarySecondary, text01 } from '@/lib/constants/theme';
+import {
+  buttonBg,
+  buttonBgHovered,
+  primarySecondary,
+  text01, white,
+} from '@/lib/constants/theme';
 
-interface OwnProps {
-  width?: number;
-}
-interface ContainerOwnProps {
-  width: number;
-}
+type Props = {
+  width?: number | string;
+  height?: number;
+  isOutlined?: boolean;
+  isBoldText?: boolean;
+  isUpperCase?: boolean;
+};
 
-type ButtonProps = OwnProps;
-type ContainerProps = ContainerOwnProps;
-
-export const Button: FC<ButtonProps> = ({ width }) => (
-  <Container width={width} />
+export const Button: FC<Props> = ({
+  width,
+  height,
+  isOutlined,
+  isBoldText,
+  isUpperCase,
+  children,
+  ...props
+}) => (
+  <Container
+    width={width}
+    height={height}
+    isOutlined={isOutlined}
+    isBoldText={isBoldText}
+    isUpperCase={isUpperCase}
+    {...props}
+  >
+    {children}
+  </Container>
 );
 
-const Container = styled.button<ContainerProps>`
+const Container = styled.button<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: 40px;
+  width: ${({ width }) => width || 'auto'};
+  height: ${({ height }) => `${height}px` || '40px'};
 
-  border: 1px solid ${primarySecondary};
+  background-color: ${buttonBg};
+  border: none;
   border-radius: 4px;
+  cursor: pointer;
 
-  font-size: 11px;
-  font-weight: 500;
-  color: ${text01};
+  font-size: 12px;
+  ${({ isBoldText }) => isBoldText && ('font-weight: 500;')}
+  color: ${white};
+  ${({ isUpperCase }) => isUpperCase && ('text-transform: uppercase;')}
   letter-spacing: 0.5px;
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  &:hover {
+    background-color: ${buttonBgHovered};
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+
+  ${({ isOutlined }) => isOutlined && (`
+    background-color: transparent;
+    border: 1px solid ${primarySecondary};
+
+    color: ${text01};
+  `)}
 `;

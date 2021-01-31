@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -18,19 +19,26 @@ export const UserNavUser: FC<Props> = () => {
   const { t } = useTranslation('nav');
 
   return (
-    <Container>
-      <Icon>
-        <UserIcon />
-      </Icon>
-      <Text>
-        {t('user.signIn')}
-      </Text>
-    </Container>
+    <Link href="/id/login">
+      <Ref>
+        <Container>
+          <Icon>
+            <UserIcon />
+          </Icon>
+          <Text>
+            {t('user.signIn')}
+          </Text>
+        </Container>
+      </Ref>
+    </Link>
   );
 };
 
 const Icon = styled.div`
   width: 30px;
+
+  position: relative;
+  top: 2px;
 
   & svg {
     width: 30px;
@@ -46,9 +54,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  order: 1;
 
-  width: 60%;
+  width: 100%;
   padding: 0 7px;
 
   border-right: 1px solid ${borderSecondary};
@@ -59,10 +66,6 @@ const Container = styled.div`
   }
   
   @media (min-width: ${TABLET_WIDTH}px) {
-    order: 2;
-
-    width: 100px;
-
     border-color: transparent;
   }
 `;
@@ -74,4 +77,17 @@ const Text = styled.span`
   font-size: 9px;
   color: ${white};
   text-transform: uppercase;
+`;
+
+const Ref = styled.a`
+  display: flex;
+  order: 1;
+
+  width: 60%;
+
+  @media (min-width: ${TABLET_WIDTH}px) {
+    order: 2;
+
+    width: 100px;
+  }
 `;

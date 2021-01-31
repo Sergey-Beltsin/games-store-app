@@ -1,0 +1,32 @@
+{
+  "login": "Войти",
+  "loginWith": "Войти с помощью {{name}}",
+  "registerWith": "Зарегестрироваться с помощью {{name}}",
+  "email": "электронной почты",
+  "chooseLoginWith": "Выберите способ входа в свою учётную запись {{store}}",
+  "chooseRegisterWith": "Выберите, как вы хотели бы зарегистрироваться",
+  "notAccount": "Нет учётной записи {{store}}?",
+  "register": "Зарегистрироваться",
+  "loginWithAccount": "Войдите с помощью учётной записи {{store}}",
+  "rememberMe": "Запомнить меня",
+  "forgotPassword": "Забыли пароль?",
+  "emailPlaceholder": "Адрес электронной почты",
+  "passwordPlaceholder": "Пароль",
+  "loginNow": "Войти прямо сейчас",
+  "privacyPolicy": "Политика конфиденциальности",
+  "haveNotAccount": "Нет учётной записи {{store}}?",
+  "haveAccount": "Есть учётная запись {{store}}?",
+  "errors": {
+    "length": "Обязательно",
+    "emailValidation": "Введите корректный email",
+    "passwordValidation": "Введите корректный пароль"
+  },
+  "backToLogin": {
+    "title": "Вернуться ко",
+    "link": "всем вариантам входа"
+  },
+  "backToRegister": {
+    "title": "Вернуться ко",
+    "link": "всем вариантам регистрации"
+  }
+}

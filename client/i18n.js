@@ -4,6 +4,7 @@ module.exports = {
   pages: {
     '*': ['common', 'nav'],
     '/': ['[name]'],
+    'rgx:/id': ['id'],
   },
   loadLocaleFrom: (lang, ns) => import(`./public/translations/${lang}/${ns}.json`).then((m) => m.default),
 };

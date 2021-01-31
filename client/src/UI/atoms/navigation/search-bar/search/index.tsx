@@ -38,7 +38,7 @@ export const SearchBar: FC<Props> = ({
   isOpen,
   setIsOpen,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('nav');
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
   useOutsideAlerter(wrapperRef, () => setIsOpen(false));
