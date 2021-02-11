@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { checkboxBg, greyText, white } from '@/lib/constants/theme';

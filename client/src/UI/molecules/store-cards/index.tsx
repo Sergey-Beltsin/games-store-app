@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import hash from 'object-hash';
 
 import { StoreCard } from '@/UI/atoms/store';
-import { mockData } from '@/lib/mock/common';
 
 interface Card {
   src: string;
@@ -66,6 +65,7 @@ export const StoreCards: FC = () => (
     ))}
   </Container>
 );
+
 const Container = styled.ul`
   display: flex;
   flex-wrap: wrap;

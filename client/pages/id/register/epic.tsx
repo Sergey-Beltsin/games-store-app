@@ -1,10 +1,14 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+
 import { SignContainer } from '@/UI/atoms/sign';
+import { EpicRegister } from '@/features/id/containers/register';
 
 const RegisterEpic: FC = () => (
   <SignContainer>
-    <Container />
+    <Container>
+      <EpicRegister />
+    </Container>
   </SignContainer>
 );
 

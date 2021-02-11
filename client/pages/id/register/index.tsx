@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 import { SignContainer, SignLoginCard } from '@/UI/atoms/sign';
 import { greyText, text01, white } from '@/lib/constants/theme';
-import { LOGIN_METHODS } from '@/lib/constants/mock-data';
+import { LOGIN_METHODS } from '@/lib/mock/mock-data';
 import { STORE_NAME } from '@/lib/constants/common';
 
 const Register: FC = () => {

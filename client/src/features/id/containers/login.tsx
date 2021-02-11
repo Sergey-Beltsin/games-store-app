@@ -7,11 +7,14 @@ import useTranslation from 'next-translate/useTranslation';
 import { greyText, text01 } from '@/lib/constants/theme';
 import { STORE_NAME } from '@/lib/constants/common';
 import { Input, Checkbox } from '@/UI/atoms/forms';
-import { useStore } from 'effector-react';
-import { ILoginStore } from '@/features/id/store.types';
 import {
-  $login, handleEmail, handleEmailError, handlePassword, handlePasswordError, handleRemember,
-} from '@/features/id/store';
+  handleEmail,
+  handleEmailError,
+  handlePassword,
+  handlePasswordError,
+  handleRemember,
+  useLoginStore,
+} from '@/features/id/login-store';
 import { Button } from '@/UI/atoms/button';
 
 type TextProps = {
@@ -39,11 +42,6 @@ const emailValidation = (email: string): boolean => {
   return re.test(email);
 };
 
-// const passwordValidation = (password: string): boolean => {
-//   const re = /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/;
-//   return re.test(password);
-// };
-
 export const Login: FC = () => {
   const { t } = useTranslation('id');
   const {
@@ -51,7 +49,7 @@ export const Login: FC = () => {
     password,
     remember,
     errors,
-  } = useStore<ILoginStore>($login);
+  } = useLoginStore();
 
   const onBlurEmail = (email: string) => {
     if (!email.length) {

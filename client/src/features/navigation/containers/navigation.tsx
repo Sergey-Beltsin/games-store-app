@@ -3,7 +3,6 @@ import {
   useRef,
 } from 'react';
 import styled from 'styled-components';
-import { useStore } from 'effector-react';
 
 import { secondary } from '@/lib/constants/theme';
 import { useOutsideAlerter } from '@/lib/utils/hooks';
@@ -16,8 +15,7 @@ import { NavTopBar } from '@/UI/organisms/navigation';
 import {
   handleOpenNav,
   handleOpenTrans,
-  handleOpenUserNav,
-  navigationStore,
+  handleOpenUserNav, useNavigationStore,
 } from '../store';
 
 interface OwnProps {}
@@ -33,14 +31,14 @@ export const Navigation: FC<NavigationProps> = () => {
     isNavOpen,
     isUserNavOpen,
     isTransOpen,
-  } = useStore(navigationStore);
+  } = useNavigationStore();
   const navigationRef = useRef(null);
   const navLinksRef = useRef(null);
   useOutsideAlerter(navigationRef, () => {
     handleOpenNav(false);
     handleOpenTrans(false);
   }, 'nav-close-btn');
-  const minLinksWidth = navLinksRef?.current && navLinksRef.current.offsetWidth + 300 + 52;
+  // const minLinksWidth = navLinksRef?.current && navLinksRef.current.offsetWidth + 300 + 52;
   // console.log(navLinksRef?.current && (navLinksRef.current.offsetWidth), minLinksWidth);
 
   return (

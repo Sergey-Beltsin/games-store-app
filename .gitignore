@@ -3,7 +3,7 @@
 # IDE
 /.idea
 /client/.idea
-/Epic/.idea
+/server/.idea
 
 # dependencies
 /node_modules

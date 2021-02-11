@@ -24,6 +24,14 @@ module.exports = nextTranslate({
   images: {
     domains: ['place-hold.it'],
   },
+  webpackDevMiddleware: (config) => {
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    };
+
+    return config;
+  },
   productionBrowserSourceMaps: true,
   env: {
     // Make the COMMIT_SHA available to the client so that Sentry events can be

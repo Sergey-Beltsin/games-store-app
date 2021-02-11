@@ -8,16 +8,29 @@
   "loginWithAccount": "Войдите с помощью учётной записи {{store}}",
   "rememberMe": "Запомнить меня",
   "forgotPassword": "Забыли пароль?",
-  "emailPlaceholder": "Адрес электронной почты",
   "passwordPlaceholder": "Пароль",
   "loginNow": "Войти прямо сейчас",
   "privacyPolicy": "Политика конфиденциальности",
   "haveNotAccount": "Нет учётной записи {{store}}?",
   "haveAccount": "Есть учётная запись {{store}}",
+  "country": "Страна",
+  "name": "Имя",
+  "lastName": "Фамилия",
+  "loginPlaceholder": "Отоброжаемое имя",
+  "emailPlaceholder": "Адрес электронной почты",
+  "password": "Пароль",
+  "noOptions": "Нет опций",
+  "continue": "Продолжить",
+  "acceptTerms": {
+    "title": "Я прочитал(-а) и принимаю",
+    "link": "условия пользования"
+  },
   "errors": {
     "length": "Обязательно",
-    "emailValidation": "Введите корректный email",
-    "passwordValidation": "Введите корректный пароль"
+    "tooShort": "Слишком короткий",
+    "tooLong": "Слишком длинный",
+    "format": "Неверный формат",
+    "emailValidation": "Неверный адрес электронной почты"
   },
   "backToLogin": {
     "title": "Вернуться ко",

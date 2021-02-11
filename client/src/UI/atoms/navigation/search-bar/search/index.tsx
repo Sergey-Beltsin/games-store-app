@@ -146,6 +146,7 @@ const Input = styled.input`
 
   background-color: transparent;
   border: none;
+  outline: none;
 
   font-size: 14px;
   color: ${text01};

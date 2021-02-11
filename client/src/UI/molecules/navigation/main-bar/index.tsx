@@ -82,7 +82,7 @@ export const MainBar: FC<MainBarProps> = ({
             flexColumn
             onClick={() => (isOpen ? handleExploreClose() : handleExploreOpen())}
           >
-            <Descr>{t('store', { name: STORE_NAME })}</Descr>
+            <Descr>{t('common:store', { name: STORE_NAME })}</Descr>
             <Wrapper>
               <Text>{t('searchBar.find')}</Text>
               <CloseIcon isOpen={isOpen} />

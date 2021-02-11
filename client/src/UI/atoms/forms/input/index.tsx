@@ -70,6 +70,7 @@ const StyledInput = styled.input`
   background-color: transparent;
   border: none;
   border-radius: 4px;
+  outline: none;
 
   font-size: 14px;
   color: ${white};

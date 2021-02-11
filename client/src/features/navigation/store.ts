@@ -1,4 +1,5 @@
 import { createStore, createEvent } from 'effector';
+import { useStore } from 'effector-react';
 
 interface State {
   isNavOpen: boolean;
@@ -16,7 +17,7 @@ export const handleOpenSearch = createEvent<boolean>();
 export const handleOpenExplore = createEvent<boolean>();
 export const handleSearch = createEvent<string>();
 
-export const navigationStore = createStore<State>({
+export const $navigation = createStore<State>({
   isNavOpen: false,
   isUserNavOpen: false,
   isTransOpen: false,
@@ -30,3 +31,5 @@ export const navigationStore = createStore<State>({
   .on(handleOpenSearch, (state, isOpen) => ({ ...state, isSearchOpened: isOpen }))
   .on(handleOpenExplore, (state, isOpen) => ({ ...state, isExploreOpen: isOpen }))
   .on(handleSearch, (state, currentSearch) => ({ ...state, search: currentSearch }));
+
+export const useNavigationStore = () => useStore($navigation);

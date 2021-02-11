@@ -5,8 +5,11 @@ import styled from 'styled-components';
 import {
   buttonBg,
   buttonBgHovered,
+  buttonDisabled,
+  greyText02,
   primarySecondary,
-  text01, white,
+  text01,
+  white,
 } from '@/lib/constants/theme';
 
 type Props = {
@@ -15,6 +18,8 @@ type Props = {
   isOutlined?: boolean;
   isBoldText?: boolean;
   isUpperCase?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
 };
 
 export const Button: FC<Props> = ({
@@ -23,6 +28,8 @@ export const Button: FC<Props> = ({
   isOutlined,
   isBoldText,
   isUpperCase,
+  disabled,
+  onClick,
   children,
   ...props
 }) => (
@@ -32,6 +39,8 @@ export const Button: FC<Props> = ({
     isOutlined={isOutlined}
     isBoldText={isBoldText}
     isUpperCase={isUpperCase}
+    disabled={disabled}
+    onClick={onClick}
     {...props}
   >
     {children}
@@ -43,8 +52,8 @@ const Container = styled.button<Props>`
   justify-content: center;
   align-items: center;
 
-  width: ${({ width }) => width || 'auto'};
-  height: ${({ height }) => `${height}px` || '40px'};
+  width: ${({ width }) => width || '100%'};
+  height: ${({ height }) => (height ? `${height}px` : '40px')};
 
   background-color: ${buttonBg};
   border: none;
@@ -73,5 +82,17 @@ const Container = styled.button<Props>`
     border: 1px solid ${primarySecondary};
 
     color: ${text01};
+  `)}
+
+  ${({ disabled }) => disabled && (`
+    background-color: ${buttonDisabled};
+
+    color: ${greyText02};
+
+    &:hover {
+      background-color: ${buttonDisabled};
+      box-shadow: none;
+      cursor: default;
+    }
   `)}
 `;

@@ -8,9 +8,9 @@ import { SearchMainBar } from '@/UI/organisms/navigation';
 import {
   handleOpenExplore,
   handleOpenSearch,
-  handleSearch, navigationStore,
+  handleSearch,
+  useNavigationStore,
 } from '@/features/navigation/store';
-import { useStore } from 'effector-react';
 
 const Home = () => {
   const { t } = useTranslation('common');
@@ -19,7 +19,7 @@ const Home = () => {
     isNavOpen,
     search,
     isExploreOpen,
-  } = useStore(navigationStore);
+  } = useNavigationStore();
 
   return (
     <Container>
