@@ -9,9 +9,8 @@ import { STORE_NAME } from '@/lib/constants/common';
 import { Input, Checkbox } from '@/UI/atoms/forms';
 import {
   handleEmail,
-  handleEmailError,
+  handleErrors, handleLogin,
   handlePassword,
-  handlePasswordError,
   handleRemember,
   useLoginStore,
 } from '@/features/id/login-store';
@@ -45,33 +44,42 @@ const emailValidation = (email: string): boolean => {
 export const Login: FC = () => {
   const { t } = useTranslation('id');
   const {
+    loading,
     email,
     password,
     remember,
     errors,
   } = useLoginStore();
 
+  const handleError = (field: string, error: string) => handleErrors({
+    ...errors,
+    [field]: error,
+  });
+
   const onBlurEmail = (email: string) => {
-    if (!email.length) {
-      handleEmailError('length');
+    if (!email) {
+      handleError('email', 'length');
       return;
     }
     if (!emailValidation(email)) {
-      handleEmailError('emailValidation');
+      handleError('email', 'emailFormat');
       return;
     }
 
-    handleEmailError('');
+    handleError('email', '');
   };
 
   const onBlurPassword = (password: string) => {
-    if (!password.length) {
-      handlePasswordError('length');
+    if (!password) {
+      handleError('password', 'length');
       return;
     }
 
-    handlePasswordError('');
+    handleError('password', '');
   };
+
+  const isDisabled = (): boolean => !email || !emailValidation(email)
+    || !password;
 
   return (
     <Container>
@@ -95,6 +103,7 @@ export const Login: FC = () => {
             placeholder={t('passwordPlaceholder')}
             onBlur={onBlurPassword}
             error={errors.password}
+            type="password"
           />
         </InputWrapper>
         <Wrapper flex flexSb alignCenter>
@@ -114,6 +123,9 @@ export const Login: FC = () => {
           isUpperCase
           width="100%"
           height={50}
+          disabled={isDisabled()}
+          loading={loading}
+          onClick={() => handleLogin({ email, password })}
         >
           {t('loginNow')}
         </StyledButton>

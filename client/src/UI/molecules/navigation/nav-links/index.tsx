@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
 import hash from 'object-hash';
 
-import { PC_MIDDLE_WIDTH } from '@/lib/constants/common';
+import { PC_MIDDLE_WIDTH, TABLET_WIDTH } from '@/lib/constants/common';
 import { NavLink } from '@/UI/atoms/navigation';
 
 interface OwnProps {}
@@ -63,6 +63,10 @@ const Container = styled.ul`
   padding: 0;
 
   list-style: none;
+  
+  @media (min-width: ${TABLET_WIDTH}px) {
+    overflow: hidden;
+  }
 
   @media (min-width: ${PC_MIDDLE_WIDTH}px) {
     flex-direction: row;

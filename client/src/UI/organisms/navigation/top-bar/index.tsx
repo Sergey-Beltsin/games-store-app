@@ -60,21 +60,21 @@ export const NavTopBar: FC<NavTopBarProps> = forwardRef(({
         onClick={onClick}
         maxWidth={TABLET_WIDTH}
       />
-      <AdaptiveWrapper tabletWidth>
-        <UserNav
-          transHandler={transHandler}
-          isOpen={isUserNavOpen}
-          userNavHandler={userNavHandler}
-        />
+      <Wrapper>
+        <UserNavWrapper>
+          <UserNav
+            transHandler={transHandler}
+            isOpen={isUserNavOpen}
+            userNavHandler={userNavHandler}
+          />
+        </UserNavWrapper>
         <TranslationsContainer
           isOpen={isTransOpen}
           className="nav-close-btn"
-          onMouseEnter={() => setIsTransOpen(true)}
-          onMouseLeave={() => setIsTransOpen(false)}
         >
           <Translations onClose={() => setIsTransOpen(false)} />
         </TranslationsContainer>
-      </AdaptiveWrapper>
+      </Wrapper>
     </Wrapper>
   </Container>
 ));
@@ -92,10 +92,6 @@ const Container = styled.div`
   z-index: 500;
 
   background-color: ${secondary};
-
-  @media (min-width: ${TABLET_WIDTH}px) {
-    overflow: hidden;
-  }
 `;
 
 const Wrapper = styled.div`
@@ -105,8 +101,16 @@ const Wrapper = styled.div`
 const AdaptiveWrapper = styled.div<WrapperProps>`
   display: none;
 
-  @media (min-width: ${({ tabletWidth }) => (tabletWidth ? TABLET_WIDTH : PC_MIDDLE_WIDTH)}px) {
+  @media (min-width: ${PC_MIDDLE_WIDTH}px) {
     display: flex;
+  }
+`;
+
+const UserNavWrapper = styled.div`
+  display: none;
+
+  @media (min-width: ${TABLET_WIDTH}px) {
+    display: block;
   }
 `;
 
@@ -114,23 +118,14 @@ const TranslationsContainer = styled.div<ContainerProps>`
   width: 90vw;
 
   position: fixed;
-  right: ${({ isOpen }) => (isOpen ? 10 : -150)}vw;
+  right: ${({ isOpen }) => (isOpen ? 0 : -150)}vw;
   top: 52px;
   bottom: 0;
-  z-index: 100;
 
   transition: right 0.4s ease,
     opacity 0.2s ease;
 
   @media (min-width: ${TABLET_WIDTH}px) {
-    width: 180px;
-
-    right: 200px;
-    bottom: auto;
-
-    ${({ isOpen }) => !isOpen && (`
-      opacity: 0;
-      visibility: hidden;
-    `)}
+    display: none;
   }
 `;

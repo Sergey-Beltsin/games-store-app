@@ -1,13 +1,14 @@
-interface LoginErrors {
+export interface ILoginErrors {
   email: string;
   password: string;
 }
 
 export interface ILoginStore {
+  loading: boolean;
   email: string;
   password: string;
   remember: boolean;
-  errors: LoginErrors;
+  errors: ILoginErrors;
 }
 
 export interface IOption {
@@ -25,6 +26,7 @@ export interface IRegisterErrors {
 }
 
 export interface IRegisterStore {
+  loading: boolean;
   country: string;
   firstName: string;
   lastName: string;
@@ -35,11 +37,16 @@ export interface IRegisterStore {
   errors: IRegisterErrors;
 }
 
-export interface IHandleRegister {
+export interface IRegisterData {
   country: string;
   firstName: string;
   lastName: string;
   login: string;
+  email: string;
+  password: string;
+}
+
+export interface ILoginData {
   email: string;
   password: string;
 }

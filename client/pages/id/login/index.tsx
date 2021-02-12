@@ -6,6 +6,7 @@ import { SignContainer, SignLoginCard } from '@/UI/atoms/sign';
 import { STORE_NAME } from '@/lib/constants/common';
 import { greyText, text01 } from '@/lib/constants/theme';
 import { LOGIN_METHODS } from '@/lib/mock/mock-data';
+import { WithAccountRedirect } from '@/UI/atoms/HOCs';
 
 type TextProps = {
   topMargin?: boolean;
@@ -41,7 +42,8 @@ const Login = () => {
     </Container>
   );
 };
-export default Login;
+
+export default WithAccountRedirect(Login);
 
 const Container = styled.div``;
 

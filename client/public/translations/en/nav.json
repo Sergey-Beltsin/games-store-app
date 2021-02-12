@@ -8,7 +8,9 @@
   },
   "user": {
     "signIn": "Sign in",
-    "download": "Download {{name}}"
+    "download": "Download {{name}}",
+    "account": "Account",
+    "exit": "Exit"
   },
   "searchBar": {
     "find": "Discover",

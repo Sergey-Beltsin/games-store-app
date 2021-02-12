@@ -22,7 +22,6 @@ export const loginCardHovered: string = '#363636';
 export const checkboxBg: string = '#454545';
 
 export const storeLogoBg: string = '#353535';
-export const storeLogoBgHovered: string = '#3E3D3D';
 
 export const white: string = '#FFFFFF';
 export const whiteSecondary: string = '#E7E7E7';

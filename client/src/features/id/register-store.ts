@@ -1,19 +1,33 @@
+import Router from 'next/router';
 import { createEffect, createEvent, createStore } from 'effector';
 import { useStore } from 'effector-react';
+import Cookies from 'js-cookie';
 
-import { axios } from '@/lib/axios';
+import { RequestService } from '@/lib/services';
+import { POST } from '@/lib/services/request.service.types';
+import { identityRoutes } from '@/lib/services/routes';
+import { initAccountStore } from '@/features/account/store';
+import {
+  IRegisterData,
+  IRegisterErrors,
+  IRegisterStore,
+} from './store.types';
 
-import { IHandleRegister, IRegisterErrors, IRegisterStore } from './store.types';
+export const handleRegister = createEffect(async (userData: IRegisterData) => {
+  handleLoading(true);
+  const data = await RequestService(identityRoutes.register, { method: POST, body: userData });
+  handleLoading(false);
 
-export const handleRegister = createEffect(async (data: IHandleRegister): void => {
-  try {
-    const res = await axios.post('/api/identity/register', data);
-    console.log(res);
-  } catch (e) {
-    console.log(e);
+  if (data.isSuccess) {
+    Cookies.set('token', data.message);
+    Cookies.set('expiresDate', data.expiresDate);
+    Cookies.set('user', data.user);
+    initAccountStore(data.user);
+    Router.push('/store');
   }
 });
 
+const handleLoading = createEvent<boolean>();
 export const handleCountry = createEvent<string>();
 export const handleFirstName = createEvent<string>();
 export const handleLastName = createEvent<string>();
@@ -24,6 +38,7 @@ export const handleAcceptTerms = createEvent<boolean>();
 export const handleErrors = createEvent<IRegisterErrors>();
 
 export const $register = createStore<IRegisterStore>({
+  loading: false,
   country: '',
   firstName: '',
   lastName: '',
@@ -40,6 +55,7 @@ export const $register = createStore<IRegisterStore>({
     acceptTerms: '',
   },
 })
+  .on(handleLoading, (state, loading) => ({ ...state, loading }))
   .on(handleCountry, (state, country) => ({ ...state, country }))
   .on(handleFirstName, (state, firstName) => ({ ...state, firstName }))
   .on(handleLastName, (state, lastName) => ({ ...state, lastName }))

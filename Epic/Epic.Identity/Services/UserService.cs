@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -9,63 +10,55 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Epic.Identity.Entities;
 using Epic.Identity.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Epic.Identity.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IConfiguration _configuration;
 
-        public UserService(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public UserService(UserManager<AppUser> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
         }
 
-        public async Task<UserManagerResponse> RegisterUserAsync(RegisterEntity model)
-        {
-            if (model == null)
-                throw new NullReferenceException("Register model is not provided");
-
-            var identityUser = new IdentityUser()
-            {
-                Email = model.Email,
-                UserName = model.Login
-            };
-
-            var result = await _userManager.CreateAsync(identityUser, model.Password);
-
-            if (result.Succeeded)
-            {
-                StringBuilder userData = new StringBuilder();
-                userData.Append(identityUser.Email);
-                userData.Append(identityUser.UserName);
-
-                return new UserManagerResponse
-                {
-                    Message = "User created successfully!",
-                    IsSuccess = true,
-                    Data = userData.ToString()
-                };
-            }
-
-            return new UserManagerResponse
-            {
-                Message = "User did not created",
-                IsSuccess = false,
-                Errors = result.Errors.Select(e => e.Description)
-            };
-        }
-
         public async Task<UserManagerResponse> LoginUserAsync(LoginEntity model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            AppUser user;
+
+            try
+            {
+                user = await _userManager.FindByEmailAsync(model.Email);
+            }
+            catch (InvalidOperationException e)
+            {
+                return new UserManagerResponse
+                {
+                    Message = "This email is already taken",
+                    Type = "email.taken",
+                    IsSuccess = false,
+                    Errors = new List<string> { e.ToString() }
+                };
+            }
+            catch (Exception e)
+            {
+                return new UserManagerResponse
+                {
+                    Message = "Something went wrong",
+                    Type = "error",
+                    IsSuccess = false,
+                    Errors = new List<string> { e.ToString() }
+                };
+            }
 
             if (user == null)
                 return new UserManagerResponse
                 {
                     Message = "There is no user with that Email address",
+                    Type = "email.noUser",
                     IsSuccess = false
                 };
 
@@ -75,6 +68,7 @@ namespace Epic.Identity.Services
                 return new UserManagerResponse
                 {
                     Message = "Invalid password",
+                    Type = "password.invalid",
                     IsSuccess = false
                 };
 
@@ -96,12 +90,79 @@ namespace Epic.Identity.Services
 
             string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
+            AuthResponseUser responseUser = new AuthResponseUser
+            {
+                Email = user.Email,
+                Login = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Country = user.Country
+            };
+
             return new UserManagerResponse
             {
                 Message = tokenAsString,
                 IsSuccess = true,
-                ExpiresDate = token.ValidTo
+                ExpiresDate = token.ValidTo,
+                User = responseUser
             };
         }
+
+        public async Task<UserManagerResponse> RegisterUserAsync(RegisterEntity model)
+        {
+            if (model == null)
+                throw new NullReferenceException("Register model is not provided");
+
+            var identityUser = new AppUser()
+            {
+                Email = model.Email,
+                UserName = model.Login,
+                Country = model.Country,
+                FirstName = model.FirstName,
+                LastName = model.LastName
+            };
+
+            var result = await _userManager.CreateAsync(identityUser, model.Password);
+
+            if (result.Succeeded)
+            {
+                var response = await LoginUserAsync(new LoginEntity
+                {
+                    Email = model.Email,
+                    Password = model.Password
+                });
+
+                return response;
+            }
+
+            return new UserManagerResponse
+            {
+                Message = "User did not created",
+                Type = "error",
+                IsSuccess = false,
+                Errors = result.Errors.Select(e => e.Description)
+            };
+        }
+
+        // public async Task<UserManagerResponse> GetById(Guid id)
+        // {
+        //     var user = await _userManager.FindByIdAsync(id.ToString());
+        //
+        //     if (user == null)
+        //     {
+        //         return new UserManagerResponse
+        //         {
+        //             Message = "User id is incorrect",
+        //             IsSuccess = false
+        //         };
+        //     }
+        //
+        //     return new UserManagerResponse
+        //     {
+        //         Message = "Find user success",
+        //         IsSuccess = true,
+        //         Data = user.ToString()
+        //     };
+        // }
     }
 }

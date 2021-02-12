@@ -1,15 +1,23 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
+import Cookies from 'js-cookie';
 
 import { SignContainer, SignLoginCard } from '@/UI/atoms/sign';
 import { greyText, text01, white } from '@/lib/constants/theme';
 import { LOGIN_METHODS } from '@/lib/mock/mock-data';
 import { STORE_NAME } from '@/lib/constants/common';
+import { useRouter } from 'next/router';
+import { WithAccountRedirect } from '@/UI/atoms/HOCs';
 
 const Register: FC = () => {
   const { t } = useTranslation('id');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (Cookies.get('token')) router.push('/account/personal');
+  }, []);
 
   return (
     <SignContainer>
@@ -28,7 +36,7 @@ const Register: FC = () => {
           <Text>
             {t('haveAccount', { store: STORE_NAME })}
           </Text>
-          <Link href="/id/login/epic">
+          <Link href="/id/login">
             <Ref>
               {t('login')}
             </Ref>
@@ -39,7 +47,7 @@ const Register: FC = () => {
   );
 };
 
-export default Register;
+export default WithAccountRedirect(Register);
 
 const Container = styled.div``;
 

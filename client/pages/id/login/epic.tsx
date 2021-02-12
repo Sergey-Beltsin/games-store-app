@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { SignContainer } from '@/UI/atoms/sign';
 import { Login } from '@/features/id/containers/login';
+import { WithAccountRedirect } from '@/UI/atoms/HOCs';
 
 const LoginEpic = () => (
   <Container>
@@ -11,6 +12,6 @@ const LoginEpic = () => (
   </Container>
 );
 
-export default LoginEpic;
+export default WithAccountRedirect(LoginEpic);
 
 const Container = styled.div``;

@@ -10,25 +10,58 @@ import {
   white,
 } from '@/lib/constants/theme';
 import { TABLET_WIDTH } from '@/lib/constants/common';
+import { useAccountStore } from '@/features/account/store';
+import { Dropdown } from '@/UI/molecules';
 
-interface OwnProps {}
+interface IDropdownItem {
+  href: string;
+  title: string;
+}
 
-type Props = OwnProps;
+type WrapperProps = {
+  mobile?: boolean;
+};
 
-export const UserNavUser: FC<Props> = () => {
+export const UserNavUser: FC = () => {
   const { t } = useTranslation('nav');
+  const { login } = useAccountStore();
+
+  const DROPDOWN_ITEMS: IDropdownItem[] = [
+    {
+      title: t('user.account'),
+      href: '/account/personal',
+    },
+    {
+      title: t('user.exit'),
+      href: '/logout',
+    },
+  ];
+
+  const renderContent = () => (
+    <Container>
+      <Icon>
+        <UserIcon />
+      </Icon>
+      <Text>
+        {login || t('user.signIn')}
+      </Text>
+    </Container>
+  );
 
   return (
-    <Link href="/id/login">
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+    <Link href={login ? '' : '/id/login'}>
       <Ref>
-        <Container>
-          <Icon>
-            <UserIcon />
-          </Icon>
-          <Text>
-            {t('user.signIn')}
-          </Text>
-        </Container>
+        <Wrapper>
+          {login ? (
+            <Dropdown options={DROPDOWN_ITEMS}>
+              {renderContent()}
+            </Dropdown>
+          ) : renderContent()}
+        </Wrapper>
+        <Wrapper mobile>
+          {renderContent()}
+        </Wrapper>
       </Ref>
     </Link>
   );
@@ -52,7 +85,7 @@ const Icon = styled.div`
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   width: 100%;
@@ -60,10 +93,6 @@ const Container = styled.div`
 
   border-right: 1px solid ${borderSecondary};
   cursor: pointer;
-
-  &:hover ${Icon} svg path {
-    fill: ${white};
-  }
   
   @media (min-width: ${TABLET_WIDTH}px) {
     border-color: transparent;
@@ -72,7 +101,7 @@ const Container = styled.div`
 
 const Text = styled.span`
   display: block;
-  margin-left: 15px;
+  margin-left: 10px;
 
   font-size: 9px;
   color: ${white};
@@ -85,9 +114,27 @@ const Ref = styled.a`
 
   width: 60%;
 
+  &:hover ${Icon} svg path {
+    fill: ${white};
+  }
+
   @media (min-width: ${TABLET_WIDTH}px) {
     order: 2;
 
-    width: 100px;
+    width: 175px;
+  }
+`;
+
+const Wrapper = styled.div<WrapperProps>`
+  display: flex;
+
+  width: 100%;
+
+  & .dropdown__content {
+    left: -5px;
+  }
+
+  @media (${({ mobile }) => (mobile ? 'min' : 'max')}-width: ${TABLET_WIDTH}px) {
+    display: none !important;
   }
 `;

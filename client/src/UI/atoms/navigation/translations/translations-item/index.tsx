@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {
   border,
@@ -7,31 +9,27 @@ import {
   secondary,
   white,
 } from '@/lib/constants/theme';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-interface OwnProps {
-  lang: string;
-  link: string;
-}
-
-type TranslationsItemProps = OwnProps;
+type TranslationsItemProps = {
+  title: string;
+  locale: string;
+};
 
 export const TranslationsItem: FC<TranslationsItemProps> = ({
-  lang,
-  link,
+  title,
+  locale,
 }) => {
   const path = useRouter().pathname;
 
   return (
     <StyledLink
       href={path}
-      locale={link}
+      locale={locale}
     >
       <Ref className="nav-close-btn">
         <Container className="nav-close-btn">
           <Text className="nav-close-btn">
-            {lang}
+            {title}
           </Text>
         </Container>
       </Ref>

@@ -71,8 +71,9 @@ export const Select: FC<Props> = ({ options, onSelect, placeholder }) => {
       />
       <Wrapper ref={listRef}>
         <Icon
-          rotate={isOpen}
+          rotate={isOpen || undefined}
           onClick={() => setIsOpen((prevState) => !prevState)}
+          type="button"
         >
           <ArrowShortIcon />
         </Icon>
@@ -150,6 +151,7 @@ const List = styled.ul`
   top: calc(100% + 5px);
   left: 0;
   right: 0;
+  z-index: 999;
 
   overflow: auto;
   background-color: ${borderTertiary};

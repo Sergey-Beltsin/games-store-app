@@ -122,6 +122,10 @@ const UserActions = styled.div`
   display: flex;
 
   height: 52px;
+
+  @media (min-width: ${TABLET_WIDTH}px) {
+    height: auto;
+  }
 `;
 
 const Wrapper = styled.div`

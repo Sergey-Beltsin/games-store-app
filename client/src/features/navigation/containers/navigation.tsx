@@ -120,7 +120,7 @@ const NavigationWrapper = styled.div<ContainerProps>`
   bottom: 0;
   z-index: 200;
   
-  transition: right 0.6s;
+  transition: right 0.4s;
 `;
 
 const NavigationInner = styled.div`

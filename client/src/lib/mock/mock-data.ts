@@ -15,3 +15,21 @@ export const LOGIN_METHODS: ILoginMethod[] = [
     registerHref: 'register/epic',
   },
 ];
+
+interface TranslationItem {
+  title: string;
+  locale: string;
+}
+
+type TranslationsList = TranslationItem[];
+
+export const LOCALES: TranslationsList = [
+  {
+    title: 'English',
+    locale: 'en',
+  },
+  {
+    title: 'Русский',
+    locale: 'ru',
+  },
+];

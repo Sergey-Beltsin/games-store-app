@@ -47,6 +47,7 @@ const passwordValidation = (password: string): boolean => {
 
 export const EpicRegister: FC = () => {
   const {
+    loading,
     country,
     firstName,
     lastName,
@@ -105,70 +106,61 @@ export const EpicRegister: FC = () => {
     },
   ];
 
+  const handleError = (field: string, error: string) => handleErrors({
+    ...errors,
+    [field]: error,
+  });
+
   const onEmailBlur = (email: string): void => {
-    const currentErrors: IRegisterErrors = { ...errors };
     if (!email) {
-      currentErrors.email = 'length';
-      handleErrors(currentErrors);
+      handleError('email', 'length');
       return;
     }
 
     if (!emailValidation(email)) {
-      currentErrors.email = 'emailValidation';
-      handleErrors(currentErrors);
+      handleError('email', 'emailFormat');
       return;
     }
 
-    currentErrors.email = '';
-    handleErrors(currentErrors);
+    handleError('email', '');
   };
 
   const onPasswordBlur = (password: string): void => {
-    const currentErrors: IRegisterErrors = { ...errors };
     if (!password) {
-      currentErrors.password = 'length';
-      handleErrors(currentErrors);
+      handleError('password', 'length');
       return;
     }
 
-    if (password.length <= 8) {
-      currentErrors.password = 'tooShort';
-      handleErrors(currentErrors);
+    if (password.length < 8) {
+      handleError('password', 'tooShort');
       return;
     }
 
     if (!passwordValidation(password)) {
-      currentErrors.password = 'format';
-      handleErrors(currentErrors);
+      handleError('password', 'passwordFormat');
       return;
     }
 
-    currentErrors.password = '';
-    handleErrors(currentErrors);
+    handleError('password', '');
   };
 
   const onLoginBlur = (login: string): void => {
-    const currentErrors: IRegisterErrors = { ...errors };
     if (!login) {
-      currentErrors.login = 'length';
-      handleErrors(currentErrors);
+      handleError('login', 'length');
       return;
     }
 
-    if (login.length <= 3) {
-      currentErrors.login = 'tooShort';
-      handleErrors(currentErrors);
+    if (login.length < 3) {
+      handleError('login', 'tooShort');
       return;
     }
 
-    if (login.length >= 16) {
-      currentErrors.login = 'tooLong';
-      handleErrors(currentErrors);
+    if (login.length > 20) {
+      handleError('login', 'tooLong');
       return;
     }
 
-    currentErrors.login = '';
-    handleErrors(currentErrors);
+    handleError('login', '');
   };
 
   const isDisabled = (): boolean => !passwordValidation(password) || !emailValidation(email)
@@ -177,131 +169,144 @@ export const EpicRegister: FC = () => {
 
   return (
     <Container>
-      <Wrapper bottomMargin>
-        <Select
-          options={LIST_ITEMS}
-          onSelect={(value: IOption) => handleCountry(value.key)}
-          placeholder={`*${t('country')}`}
-        />
-      </Wrapper>
-      <Wrapper flex bottomMargin>
-        <Wrapper rightMargin>
+      <Form>
+        <Wrapper bottomMargin>
+          <Select
+            options={LIST_ITEMS}
+            onSelect={(value: IOption) => handleCountry(value.key)}
+            placeholder={`*${t('country')}`}
+          />
+        </Wrapper>
+        <Wrapper flex bottomMargin>
+          <Wrapper rightMargin>
+            <Input
+              value={firstName}
+              onChange={(value: string) => handleFirstName(value)}
+              placeholder={`*${t('name')}`}
+              onBlur={(value: string) => {
+                const currentErrors = { ...errors };
+                if (!value) {
+                  currentErrors.firstName = 'length';
+                  handleErrors(currentErrors);
+                  return;
+                }
+
+                currentErrors.firstName = '';
+                handleErrors(currentErrors);
+              }}
+              error={errors.firstName}
+            />
+          </Wrapper>
           <Input
-            value={firstName}
-            onChange={(value: string) => handleFirstName(value)}
-            placeholder={`*${t('name')}`}
+            value={lastName}
+            onChange={(value: string) => handleLastName(value)}
+            placeholder={`*${t('lastName')}`}
             onBlur={(value: string) => {
               const currentErrors = { ...errors };
               if (!value) {
-                currentErrors.firstName = 'length';
+                currentErrors.lastName = 'length';
                 handleErrors(currentErrors);
                 return;
               }
 
-              currentErrors.firstName = '';
+              currentErrors.lastName = '';
               handleErrors(currentErrors);
             }}
-            error={errors.firstName}
+            error={errors.lastName}
           />
         </Wrapper>
-        <Input
-          value={lastName}
-          onChange={(value: string) => handleLastName(value)}
-          placeholder={`*${t('lastName')}`}
-          onBlur={(value: string) => {
-            const currentErrors = { ...errors };
-            if (!value) {
-              currentErrors.lastName = 'length';
-              handleErrors(currentErrors);
-              return;
-            }
-
-            currentErrors.lastName = '';
-            handleErrors(currentErrors);
-          }}
-          error={errors.lastName}
-        />
-      </Wrapper>
-      <Wrapper bottomMargin>
-        <Input
-          value={login}
-          onChange={(value: string) => handleLogin(value)}
-          placeholder={`*${t('loginPlaceholder')}`}
-          onBlur={(value: string) => onLoginBlur(value)}
-          error={errors.login}
-        />
-      </Wrapper>
-      <Wrapper bottomMargin>
-        <Input
-          value={email}
-          onChange={(value: string) => handleEmail(value)}
-          placeholder={`*${t('emailPlaceholder')}`}
-          onBlur={(value: string) => onEmailBlur(value)}
-          error={errors.email ? errors.email : ''}
-        />
-      </Wrapper>
-      <Wrapper bottomMargin>
-        <Input
-          value={password}
-          onChange={(value: string) => handlePassword(value)}
-          placeholder={`*${t('password')}`}
-          onBlur={(value: string) => onPasswordBlur(value)}
-          error={errors.password ? errors.password : ''}
-        />
-      </Wrapper>
-      <Checkbox
-        checked={acceptTerms}
-        onChange={(checked: boolean) => handleAcceptTerms(checked)}
-        label={t('acceptTerms.title')}
-      />
-      <Link href="terms">
-        <Ref>
-          {t('acceptTerms.link')}
-        </Ref>
-      </Link>
-      <StyledButton
-        isBoldText
-        isUpperCase
-        disabled={isDisabled()}
-        height={50}
-        onClick={() => handleRegister({
-          country, firstName, lastName, login, email, password,
-        })}
-      >
-        {t('continue')}
-      </StyledButton>
-      <Link href="/terms">
-        <Ref alignCenter bottomMargin>
-          {t('privacyPolicy')}
-        </Ref>
-      </Link>
-      <Wrapper>
-        <Wrapper flex flexCenter>
-          <Text>
-            {t('haveAccount', { store: STORE_NAME })}
-          </Text>
-          <Link href="/id/login/epic">
-            <Ref leftMargin>
-              {t('login')}
-            </Ref>
-          </Link>
+        <Wrapper bottomMargin>
+          <Input
+            value={login}
+            onChange={(value: string) => handleLogin(value)}
+            placeholder={`*${t('loginPlaceholder')}`}
+            onBlur={(value: string) => onLoginBlur(value)}
+            error={errors.login}
+            tooltipContent={t('tooltips.login')}
+          />
         </Wrapper>
-        <Wrapper flex flexCenter>
-          <Text>
-            {t('backToRegister.title')}
-          </Text>
-          <Link href="/id/register">
-            <Ref leftMargin>
-              {t('backToRegister.link')}
-            </Ref>
-          </Link>
+        <Wrapper bottomMargin>
+          <Input
+            value={email}
+            onChange={(value: string) => handleEmail(value)}
+            placeholder={`*${t('emailPlaceholder')}`}
+            onBlur={(value: string) => onEmailBlur(value)}
+            error={errors.email ? errors.email : ''}
+          />
         </Wrapper>
-      </Wrapper>
+        <Wrapper bottomMargin>
+          <Input
+            value={password}
+            onChange={(value: string) => handlePassword(value)}
+            placeholder={`*${t('password')}`}
+            onBlur={(value: string) => onPasswordBlur(value)}
+            error={errors.password ? errors.password : ''}
+            type="password"
+            tooltipContent={t('tooltips.password')}
+          />
+        </Wrapper>
+        <Checkbox
+          checked={acceptTerms}
+          onChange={(checked: boolean) => handleAcceptTerms(checked)}
+          label={t('acceptTerms.title')}
+        />
+        <Link href="terms">
+          <Ref>
+            {t('acceptTerms.link')}
+          </Ref>
+        </Link>
+        <StyledButton
+          isBoldText
+          isUpperCase
+          disabled={isDisabled()}
+          height={50}
+          loading={loading || undefined}
+          onClick={() => handleRegister({
+            country,
+            firstName,
+            lastName,
+            login,
+            email,
+            password,
+          })}
+        >
+          {t('continue')}
+        </StyledButton>
+        <Link href="/terms">
+          <Ref alignCenter bottomMargin>
+            {t('privacyPolicy')}
+          </Ref>
+        </Link>
+        <Wrapper>
+          <Wrapper flex flexCenter>
+            <Text>
+              {t('haveAccount', { store: STORE_NAME })}
+            </Text>
+            <Link href="/id/login/epic">
+              <Ref leftMargin>
+                {t('login')}
+              </Ref>
+            </Link>
+          </Wrapper>
+          <Wrapper flex flexCenter>
+            <Text>
+              {t('backToRegister.title')}
+            </Text>
+            <Link href="/id/register">
+              <Ref leftMargin>
+                {t('backToRegister.link')}
+              </Ref>
+            </Link>
+          </Wrapper>
+        </Wrapper>
+      </Form>
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const Form = styled.form``;
 
 const Wrapper = styled.div<WrapperProps>`
   ${({ flex }) => flex && ('display: flex;')}

@@ -12,6 +12,8 @@ import {
   white,
 } from '@/lib/constants/theme';
 
+import { Loading } from '@/UI/atoms';
+
 type Props = {
   width?: number | string;
   height?: number;
@@ -20,6 +22,7 @@ type Props = {
   isUpperCase?: boolean;
   disabled?: boolean;
   onClick?: () => void;
+  loading?: boolean;
 };
 
 export const Button: FC<Props> = ({
@@ -30,7 +33,9 @@ export const Button: FC<Props> = ({
   isUpperCase,
   disabled,
   onClick,
+  loading,
   children,
+  type = 'button',
   ...props
 }) => (
   <Container
@@ -41,9 +46,11 @@ export const Button: FC<Props> = ({
     isUpperCase={isUpperCase}
     disabled={disabled}
     onClick={onClick}
+    loading={loading}
+    type={type}
     {...props}
   >
-    {children}
+    {loading ? <Loading /> : children}
   </Container>
 );
 
@@ -94,5 +101,9 @@ const Container = styled.button<Props>`
       box-shadow: none;
       cursor: default;
     }
+  `)}
+  
+  ${({ loading }) => loading && (`
+    background-color: ${buttonDisabled};
   `)}
 `;

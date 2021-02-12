@@ -4,10 +4,8 @@ using Epic.Identity.Models;
 
 namespace Epic.Identity
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
-        public DbSet<AppUser> AppUsers { get; set; }
-
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }

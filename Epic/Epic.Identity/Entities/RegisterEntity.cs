@@ -14,19 +14,19 @@ namespace Epic.Identity.Entities
         public string Password { get; set; }
         
         [Required]
-        [StringLength(50)]
+        [StringLength(20, MinimumLength = 3)]
         public string Login { get; set; }
         
         [Required]
-        [StringLength(6)]
+        [StringLength(2, MinimumLength = 2)]
         public string Country { get; set; }
         
         [Required]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }
         
         [Required]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Epic.Identity.Entities;
@@ -47,5 +48,21 @@ namespace Epic.Identity.Controllers
 
             return BadRequest("Some properties is invalid");
         }
+
+        // [HttpGet("Users/{id}")]
+        // public async Task<IActionResult> GetById(Guid id)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         var result = await _userService.GetById(id);
+        //
+        //         if (result.IsSuccess)
+        //             return Ok(result);
+        //
+        //         return BadRequest(result);
+        //     }
+        //
+        //     return BadRequest("Some properties is invalid");
+        // }
     }
 }

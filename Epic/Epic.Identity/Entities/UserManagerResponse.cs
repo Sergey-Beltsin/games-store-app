@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+using Epic.Identity.Models;
 
 namespace Epic.Identity.Entities
 {
@@ -11,6 +10,7 @@ namespace Epic.Identity.Entities
         public bool IsSuccess { get; set; }
         public IEnumerable<string> Errors { get; set; }
         public DateTime? ExpiresDate { get; set; }
-        public string Data { get; set; }
+        public string Type { get; set; }
+        public AuthResponseUser User { get; set; }
     }
 }

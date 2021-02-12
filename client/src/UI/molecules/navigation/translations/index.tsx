@@ -1,50 +1,29 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import hash from 'object-hash';
 
 import { secondary } from '@/lib/constants/theme';
-import {
-  TranslationsItem,
-  TranslationsTopBar,
-} from '@/UI/atoms/navigation/translations';
+import { TranslationsTopBar } from '@/UI/atoms/navigation/translations';
+import { TranslationsItem } from '@/UI/atoms/navigation/translations/translations-item';
+import { LOCALES } from '@/lib/mock/mock-data';
 
-interface OwnProps {
+type Props = {
   onClose: () => void;
-}
-interface TranslationItem {
-  title: string;
-  abbr: string;
-}
+};
 
-type TranslationsProps = OwnProps;
-type TranslationsList = TranslationItem[];
-
-const LOCALES: TranslationsList = [
-  {
-    title: 'English',
-    abbr: 'en',
-  },
-  {
-    title: 'Русский',
-    abbr: 'ru',
-  },
-];
-
-export const Translations: FC<TranslationsProps> = ({ onClose }) => {
+export const Translations: FC<Props> = ({ onClose }) => {
   const { locale } = useRouter();
 
   return (
     <Container className="nav-close-btn">
       <TranslationsTopBar
-        lang={LOCALES.find((item) => item.abbr === locale).title}
+        lang={LOCALES.find((item) => item.locale === locale).title}
         onClose={onClose}
       />
-      {LOCALES.map((item) => item.abbr !== locale && (
+      {LOCALES.map((item) => item.locale !== locale && (
         <TranslationsItem
-          key={hash(item)}
-          lang={item.title}
-          link={item.abbr}
+          title={item.title}
+          locale={item.locale}
         />
       ))}
     </Container>
