@@ -1,0 +1,9 @@
+{
+  "title": "General Settings",
+  "accountInfo": "Account Info",
+  "login": "Display name",
+  "email": "Email address",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "country": "Country"
+}

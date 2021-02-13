@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Epic.Identity.Entities
 {
@@ -11,5 +13,9 @@ namespace Epic.Identity.Entities
         [Required]
         [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
+        
+        [JsonIgnore]
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiration { get; set; }
     }
 }

@@ -3,18 +3,17 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { white } from '@/lib/constants/theme';
 
-interface OwnProps {
+type Props = {
   src: string;
-}
+};
 
-type StoreImageProps = OwnProps;
-
-export const StoreImage: FC<StoreImageProps> = ({ src }) => (
+export const StoreImage: FC<Props> = ({ src }) => (
   <Container>
     <StyledImage
       src={src}
-      width={100}
-      height={200}
+      width={300}
+      height={400}
+      quality={100}
     />
   </Container>
 );

@@ -1,0 +1,23 @@
+{
+  "storePage": {
+    "sell": "Holiday Sale",
+    "products": {
+      "assasinsCreedValhalla": {
+        "title": "Assasin's Creed: Valhalla",
+        "descr": "Become a legendary Viking on a quest for glory. Raid your enemies, grow your settlement, and build your political power.",
+      },
+      "godfall": {
+        "title": "Godfall",
+        "descr": "Save Aperion. You are the last of the Valorian knights, masters of combat equipped with legendary armor called Valorplates. Ascend in Godfall, a first-of-its-kind, looter-slasher, melee action-RPG.",
+      },
+      "assasinsCreedRogue": {
+        "title": "Assassin's Creed Rogue",
+        "descr": "Introducing Assassin’s Creed Rogue, the darkest chapter in the Assassin’s Creed franchise yet. As Shay, you will experience the slow transformation from Assassin to Assassin Hunter.",
+      },
+      "watchDogsLegion": {
+        "title": "Watch Dogs: Legion",
+        "descr": "In Watch Dogs Legion, you get to build a resistance to take back a near-future London that is facing its downfall.",
+      }
+    }
+  }
+}

@@ -12,8 +12,10 @@ export const buttonDisabled: string = 'rgba(18, 18, 18, 0.5)';
 export const border: string = '#333333';
 export const borderSecondary: string = '#464646';
 export const borderTertiary: string = '#262626';
+export const borderWhite: string = '#EBEBEB';
 
 export const background: string = '#121212';
+export const backgroundWhite: string = '#F8F8F8';
 
 export const signCardBg: string = '#202020';
 export const loginCard: string = '#2B2B2B';

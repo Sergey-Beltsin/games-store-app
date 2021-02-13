@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Epic.Identity.Entities;
 using Epic.Identity.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Epic.Identity.Services
@@ -143,6 +145,35 @@ namespace Epic.Identity.Services
                 Errors = result.Errors.Select(e => e.Description)
             };
         }
+
+        // public async Task<LoginEntity> GetTokenAsync(string token, AppUser user)
+        // {
+        // }
+        //
+        // private RefreshToken GenerateRefreshToken()
+        // {
+        //     var randomNumber = new byte[32];
+        //     using (var generator = new RNGCryptoServiceProvider())
+        //     {
+        //         generator.GetBytes(randomNumber);
+        //         return new RefreshToken
+        //         {
+        //             Token = Convert.ToBase64String(randomNumber),
+        //             Expires = DateTime.Now.AddDays(30),
+        //             Created = DateTime.Now
+        //         };
+        //     }
+        // }
+        //
+        // private void SetRefreshTokenInCookie(string refreshToken, HttpResponse response)
+        // {
+        //     var cookieOption = new CookieOptions
+        //     {
+        //         HttpOnly = true,
+        //         Expires = DateTime.Now.AddDays(30)
+        //     };
+        //     response.Cookies.Append("refreshToken", refreshToken, cookieOption);
+        // }
 
         // public async Task<UserManagerResponse> GetById(Guid id)
         // {

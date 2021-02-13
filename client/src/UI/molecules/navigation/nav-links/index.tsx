@@ -27,18 +27,6 @@ export const NavLinks: FC<NavLinksProps> = () => {
       title: t('links.link02'),
       href: '/news',
     },
-    {
-      title: t('links.link03'),
-      href: '/faq',
-    },
-    {
-      title: t('links.link04'),
-      href: '/help',
-    },
-    {
-      title: t('links.link05'),
-      href: '/unreal',
-    },
   ];
 
   return (

@@ -67,10 +67,6 @@ export const MainBar: FC<MainBarProps> = ({
       title: t('searchBar.find'),
       href: '/store',
     },
-    {
-      title: t('searchBar.browse'),
-      href: '/store/browse',
-    },
   ];
 
   return (

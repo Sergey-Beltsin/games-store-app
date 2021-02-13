@@ -22,7 +22,7 @@ const basePath = '';
 
 module.exports = nextTranslate({
   images: {
-    domains: ['place-hold.it'],
+    domains: ['place-hold.it', 'cdn1.epicgames.com'],
   },
   webpackDevMiddleware: (config) => {
     config.watchOptions = {

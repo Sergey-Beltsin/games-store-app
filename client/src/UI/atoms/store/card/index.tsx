@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { greyText, primary, text01 } from '@/lib/constants/theme';
 import Link from 'next/link';
 import { TABLET_WIDTH } from '@/lib/constants/common';
+import useTranslation from 'next-translate/useTranslation';
 import { StoreImage } from '../image';
 
 interface OwnProps {
@@ -31,57 +32,61 @@ export const StoreCard: FC<StoreCardProps> = ({
   discount,
   oldPrice,
   price,
-}) => (
-  <Container>
-    <StyledLink href={`/store/product/${title
-      .toLowerCase()
-      .split('')
-      .filter((item) => item !== '\'' && item !== ':')
-      .join('')
-      .split(' ')
-      .join('-')}/home`}
-    >
-      <Ref>
-        <Wrapper
-          flex
-          flexCenter
-          alignCenter
-        >
-          <StoreImage
-            src={src}
-          />
-        </Wrapper>
-        <Wrapper
-          flex
-          flexColumn
-          topMargin
-        >
-          <Title>
-            {title}
-          </Title>
-          <Company>
-            {company}
-          </Company>
-          <Wrapper flex alignCenter>
-            <Discount>
-              -
-              {discount}
-              %
-            </Discount>
-            {oldPrice && (
-            <OldPrice>
-              {oldPrice}
-            </OldPrice>
-            )}
-            <Price>
-              {price}
-            </Price>
+}) => {
+  const { t } = useTranslation('products');
+
+  return (
+    <Container>
+      <StyledLink href={`/store/product/${title
+        .toLowerCase()
+        .split('')
+        .filter((item) => item !== '\'' && item !== ':')
+        .join('')
+        .split(' ')
+        .join('-')}/home`}
+      >
+        <Ref>
+          <Wrapper
+            flex
+            flexCenter
+            alignCenter
+          >
+            <StoreImage
+              src={src}
+            />
           </Wrapper>
-        </Wrapper>
-      </Ref>
-    </StyledLink>
-  </Container>
-);
+          <Wrapper
+            flex
+            flexColumn
+            topMargin
+          >
+            <Title>
+              {t(title)}
+            </Title>
+            <Company>
+              {company}
+            </Company>
+            <Wrapper flex alignCenter>
+              <Discount>
+                -
+                {discount}
+                %
+              </Discount>
+              {oldPrice && (
+                <OldPrice>
+                  {oldPrice}
+                </OldPrice>
+              )}
+              <Price>
+                {price}
+              </Price>
+            </Wrapper>
+          </Wrapper>
+        </Ref>
+      </StyledLink>
+    </Container>
+  );
+};
 
 const Container = styled.li`
   width: calc(50% - 8px);
